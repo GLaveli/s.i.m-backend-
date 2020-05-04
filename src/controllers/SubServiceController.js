@@ -7,9 +7,6 @@ module.exports = {
 
     const { tags, service_id } = req.headers;
 
-    console.log(tags);
-
-
     const showSubs = await SubService.find({ service: service_id }).where({ tags });
 
     return res.status(200).json(showSubs);
