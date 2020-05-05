@@ -12,22 +12,33 @@ module.exports = {
 
 
   async store(req, res) {
-    const { name, email, password, cpf } = req.body;
+    const { name, cpf, email, password, tell1, tell2, street, number, city, uf } = req.body;
+    //console.log(name, cpf, email, password, tell1, tell2, street, number, city, uf);
 
     let user = await User.findOne({ email });
 
-
     if (!user) {
-      console.log("!User");
-
       user = await User.create({
         name,
+        cpf,
         email,
         password,
-        cpf
+        tell1,
+        tell2,
+        street,
+        number,
+        city,
+        uf
       });
+
     } else {
-      user = { Message: "Email ja cadastrado!" }
+      console.log("Email ja registrado");
+
+      user = {
+        email: user.email,
+        message: "Email ja cadastrado!",
+        code: 0
+      }
     }
 
     res.status(200).json(user);

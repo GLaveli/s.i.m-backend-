@@ -2,9 +2,15 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
   name: String,
+  cpf: String,
   email: String,
   password: String,
-  cpf: String,
+  tell1: String,
+  tell2: String,
+  street: String,
+  city: String,
+  number: Number,
+  uf: String
 }, {
   timestamps: true
 });
