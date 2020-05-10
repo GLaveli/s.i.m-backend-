@@ -6,7 +6,7 @@ module.exports = {
     const { name, cpf, email, password, tell1, tell2, street, number, city, uf } = req.body;
 
     try {
-      const user = await User.findOne({ email });
+      let user = await User.findOne({ email });
 
       if (!user) {
         user = await User.create({

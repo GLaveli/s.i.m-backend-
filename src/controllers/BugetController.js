@@ -1,4 +1,5 @@
 const Budget = require('../models/Budget');
+const User = require('../models/User');
 
 module.exports = {
 
@@ -17,7 +18,7 @@ module.exports = {
     const { user_id } = req.headers;
 
     if (!user_id) {
-      res.status(200).json({ message: "Token invalido" });
+      res.status(200).json({ message: "Você não tem permissão para isso", code: 0 });
     } else {
       try {
         const budget = await Budget.create({
@@ -26,11 +27,14 @@ module.exports = {
           price,
           user: user_id
         });
-        res.status(200).json({ message: "ok" });
+        res.json(budget);
+        console.log(budget);
+
       } catch (err) {
         res.status(401).json({ message: err, code: 0 });
       }
     }
+
   },
 
 
@@ -44,11 +48,13 @@ module.exports = {
     if (budget.user == user_id) {
       const showSubs = await Budget.deleteOne().where({ _id: budget_id });
       response = {
-        message: "Orçamento removido com sucesso!"
+        message: "Orçamento removido com sucesso!",
+        cod: 1
       }
     } else {
       response = {
-        message: "Você não tem permissão para isso"
+        message: "Você não tem permissão para isso",
+        code: 0
       }
     }
 
