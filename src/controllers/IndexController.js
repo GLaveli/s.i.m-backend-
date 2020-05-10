@@ -6,3 +6,4 @@ module.exports = {
     });
   }
 };
+//Aqui voce pode checar se a API esta online!
