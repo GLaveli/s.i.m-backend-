@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   tell2: String,
   street: String,
   city: String,
-  number: Number,
+  number: String,
   uf: String
 }, {
   timestamps: true
