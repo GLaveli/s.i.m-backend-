@@ -23,8 +23,6 @@ module.exports = {
         });
 
       } else {
-        console.log("Email ja registrado");
-
         user = {
           email: user.email,
           message: "Email ja cadastrado!",

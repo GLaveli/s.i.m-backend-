@@ -1,13 +1,18 @@
 const Budget = require('../models/Budget');
-const User = require('../models/User');
 
 module.exports = {
 
   async show(req, res) {
 
     const { user_id } = req.headers;
+    let budgets;
 
-    const budgets = await Budget.find().where({ user: user_id });
+
+    if (!user_id) {
+      budgets = []
+    } else {
+      budgets = await Budget.find().where({ user: user_id }).populate('user');
+    }
 
     return res.status(200).json(budgets);
   },
@@ -27,17 +32,13 @@ module.exports = {
           price,
           user: user_id
         });
-        res.json(budget);
-        console.log(budget);
 
+        res.json(budget);
       } catch (err) {
         res.status(401).json({ message: err, code: 0 });
       }
     }
-
   },
-
-
   async delete(req, res) {
     let response = {}
     const { user_id } = req.headers;
