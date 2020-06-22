@@ -5,9 +5,8 @@ const LogonController = require('./controllers/LogonController')
 const SessionController = require('./controllers/SessionController');
 const BudgetControlle = require('./controllers/BugetController');
 
-//Validar esses dois depois!!!!!!!!!!!!!!!!!!!!!!!
+//Validar esse depois!!!!!!!!!!!!!!!!!!!!!!!
 const ServiceController = require('./controllers/ServiceController');
-const SubServiceController = require('./controllers/SubServiceController');
 
 const routes = express.Router();
 
@@ -16,8 +15,7 @@ const routes = express.Router();
 routes.get('/', IntexController.show);
 
 //Show--------------------------
-routes.get('/newservice', ServiceController.show);
-routes.get('/newsub', SubServiceController.show);
+routes.get('/services', ServiceController.show);
 routes.get('/showbudgets', BudgetControlle.show);
 
 
@@ -25,11 +23,7 @@ routes.get('/showbudgets', BudgetControlle.show);
 routes.post('/sessions', SessionController.store);
 routes.post('/logon', LogonController.logon);
 routes.post('/newbudget', BudgetControlle.store);
-
-
 routes.post('/newservice', ServiceController.store);
-routes.post('/newsub', SubServiceController.store);
-
 
 //Update--------------------------
 

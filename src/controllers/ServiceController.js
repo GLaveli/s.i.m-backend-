@@ -1,25 +1,40 @@
 const Service = require('../models/Service');
 
 module.exports = {
-
   async show(req, res) {
-    const services = await Service.find();
+    let showServices = [];
+    let { tags } = req.headers;
 
-    res.status(200).json(services);
+    if (!tags) {
+      showServices = await Service.find();
+    } else {
+      showServices = await Service.find().where({ tags });
+    }
+
+    return res.status(200).json(showServices);
   },
 
   async store(req, res) {
-    let newData = new Date;
-    let data = (newData.getDate() + "/" + (newData.getMonth() + 1) + "/" + newData.getFullYear());
-
-    const { description } = req.body;
-    const { user_id } = req.headers;
-
-    const service = await Service.create({
-      data,
+    const { service_id } = req.headers;
+    const {
       description,
-      user: user_id
-    });
-    return res.json(service);
+      priceWithCable,
+      priceWithOutCable,
+      priceAboveThreeWithCable,
+      priceAboveThreeWithOutCable,
+      tags } = req.body;
+
+
+    const newServices = await Service.create({
+      description,
+      priceWithCable,
+      priceWithOutCable,
+      priceAboveThreeWithCable,
+      priceAboveThreeWithOutCable,
+      service: service_id,
+      tags: tags.split(',').map(tag => tag.trim()),
+    })
+
+    return res.status(200).json(newServices);
   }
-};
+}

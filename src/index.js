@@ -6,7 +6,7 @@ const routes = require('./routes');
 
 const app = express();
 
-let PORT = 3333;
+let PORT = 3001;
 
 mongoose.connect('mongodb+srv://admin:Sem_senha1@s-i-m-w9uzj.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,

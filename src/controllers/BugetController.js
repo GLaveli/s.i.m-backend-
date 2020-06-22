@@ -3,10 +3,9 @@ const Budget = require('../models/Budget');
 module.exports = {
 
   async show(req, res) {
-
-    const { user_id } = req.headers;
     let budgets;
 
+    const { user_id } = req.headers;
 
     if (!user_id) {
       budgets = []

@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
 const ServiceSchema = new mongoose.Schema({
-  data: String,
+  title: String,
   description: String,
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
+  priceWithCable: Number,
+  priceWithOutCable: Number,
+  priceAboveThreeWithCable: Number,
+  priceAboveThreeWithOutCable: Number,
+  tags: [String],
 }, {
-  timestamps: true
-});
+  timestamps: true,
+}
+);
 
 module.exports = mongoose.model('Service', ServiceSchema);
