@@ -5,6 +5,7 @@ const Budget = new mongoose.Schema({
   description: String,
   price: Number,
   view: Boolean,
+  selected_itens: String,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
