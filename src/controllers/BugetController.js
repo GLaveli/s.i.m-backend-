@@ -19,7 +19,7 @@ module.exports = {
     const { title, description, totalValue, selectedItens, dataSave, selectedItensObjct } = req.body;
     const { user_id } = req.headers;
 
-    console.log(req.body);
+    //console.log(req.body);
 
     if (!user_id) {
       res.status(200).json(
@@ -38,7 +38,6 @@ module.exports = {
           dataSave: dataSave,
           selectedItensObjct: selectedItensObjct,
         });
-
         res.json(budget);
       } catch (err) {
         res.status(401).json(
