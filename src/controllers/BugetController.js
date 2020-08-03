@@ -11,12 +11,12 @@ module.exports = {
       budgets = []
     } else {
       budgets = await Budget.find().sort({ createdAt: -1 }).where({ user: user_id }).populate('user');
-    }
+    };
     return res.status(200).json(budgets);
   },
 
   async store(req, res) {
-    const { title, description, totalValue, selectedItens } = req.body;
+    const { title, description, totalValue, selectedItens, dataSave, selectedItensObjct } = req.body;
     const { user_id } = req.headers;
 
     console.log(req.body);
@@ -35,6 +35,8 @@ module.exports = {
           price: totalValue,
           selected_itens: selectedItens,
           user: user_id,
+          dataSave: dataSave,
+          selectedItensObjct: selectedItensObjct,
         });
 
         res.json(budget);
@@ -44,8 +46,8 @@ module.exports = {
             message: err, code: 0,
           }
         );
-      }
-    }
+      };
+    };
   },
   async delete(req, res) {
     let response = {}
@@ -59,13 +61,13 @@ module.exports = {
       response = {
         message: "Orçamento removido com sucesso!",
         cod: 1
-      }
+      };
     } else {
       response = {
         message: "Você não tem permissão para isso",
         code: 0
-      }
-    }
+      };
+    };
     return res.status(200).json(response);
   },
 };
