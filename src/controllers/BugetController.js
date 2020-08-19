@@ -1,25 +1,36 @@
 const Budget = require('../models/Budget');
+const User = require('../models/User');
 
 module.exports = {
 
   async show(req, res) {
-    let budgets;
+    let budgets = [];
+    let userFlag = 0;
 
-    const { user_id } = req.headers;
+    let { user_id, email } = req.headers;
+
+    let user = await User.findOne({ email });
+    if (user === null || user === [] || user === undefined)
+      return res.status(403).json({ code: 0 });
+    //Aqui pode ser implementado um metodo que retorna algum valor para expulsar usuarios sem login
+
+    userFlag = user.flag;
 
     if (!user_id) {
-      budgets = []
+      budgets = [];
     } else {
-      budgets = await Budget.find().sort({ createdAt: -1 }).where({ user: user_id }).populate('user');
+      if (user._id == user_id && Number(user.flag) == 1) {
+        budgets = await Budget.find().sort({ createdAt: -1 }).populate('user');
+      } else {
+        budgets = await Budget.find().sort({ createdAt: -1 }).where({ user: user_id }).populate('user');
+      }
     };
-    return res.status(200).json(budgets);
+    return res.status(200).json({ budgets, userFlag });
   },
 
   async store(req, res) {
     const { title, description, totalValue, selectedItens, dataSave, selectedItensObjct } = req.body;
     const { user_id } = req.headers;
-
-    //console.log(req.body);
 
     if (!user_id) {
       res.status(200).json(

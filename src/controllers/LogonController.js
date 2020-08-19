@@ -5,9 +5,7 @@ module.exports = {
   async logon(req, res) {
     const { email, password } = req.body;
 
-    //console.log(email, password);
-
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email }).select("+password");
 
     if (!user || null || '') {
       user = {
@@ -18,9 +16,19 @@ module.exports = {
       user = {
         message: 'Senha incorreta',
       }
-    };
+    }
+    //Apenas troca o password por uma hash aleatória sem sentido
+    function fog() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+      for (var i = 0; i < 25; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      return text;
+    }
 
+    user.password = await fog();
 
     res.status(200).json(user);
-  }
+  },
+
 }
