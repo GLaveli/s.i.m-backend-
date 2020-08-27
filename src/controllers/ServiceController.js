@@ -1,4 +1,5 @@
 const Service = require('../models/Service');
+const User = require('../models/User');
 
 module.exports = {
   async show(req, res) {
@@ -15,7 +16,9 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { service_id } = req.headers;
+
+    const { user_id } = req.headers;
+
     const {
       description,
       priceWithCable,
@@ -24,17 +27,26 @@ module.exports = {
       priceAboveThreeWithOutCable,
       tags } = req.body;
 
+    let user = await User.findOne({ _id: user_id });
 
-    const newServices = await Service.create({
-      description,
-      priceWithCable,
-      priceWithOutCable,
-      priceAboveThreeWithCable,
-      priceAboveThreeWithOutCable,
-      service: service_id,
-      tags: tags.split(',').map(tag => tag.trim()),
-    })
+    console.log(flag);
 
-    return res.status(200).json(newServices);
-  }
+    console.log(user);
+
+
+    /*
+        const newServices = await Service.create({
+          description,
+          priceWithCable,
+          priceWithOutCable,
+          priceAboveThreeWithCable,
+          priceAboveThreeWithOutCable,
+          tags: tags.split(',').map(tag => tag.trim()),
+        })
+        */
+
+    return res.status(200).json("ok!");
+  },
+
+  async delete(req, res) { }
 }
