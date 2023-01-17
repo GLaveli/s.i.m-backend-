@@ -22,7 +22,7 @@ module.exports = {
    responseService = await Service.find();
   } else {
    response = {
-    message: "Você não tem permissão para isso",
+    message: "Você não tem permissão para isso!",
     code: 0
    };
   }
