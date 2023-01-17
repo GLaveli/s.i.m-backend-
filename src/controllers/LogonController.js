@@ -9,7 +9,7 @@ module.exports = {
 
     if (!user || null || '') {
       user = {
-        message: 'Usuario não encontrado',
+        message: 'Usuario não encontrado!',
       }
 
     } else if (user.password != password || null || '') {
